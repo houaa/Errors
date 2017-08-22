@@ -20,6 +20,11 @@
       flex-direction: column;
       justify-content: center;
     }
+
+    #qrcode>img {
+      margin: 0 auto 0 auto;
+      display: block;
+    }
   </style>
   <meta name="theme-color" content="#00AF63">
   <link rel="shortcut icon" type="image/png" href="static/favicon.png" />
@@ -43,6 +48,7 @@
     </div>
   </div>
 
+  <script type="text/javascript" src="static/qrcode.min.js"></script>
   <script type="text/javascript">
     function getParameterByName(name, url) {
       if (!url) url = window.location.href;
@@ -53,14 +59,21 @@
       if (!results[2]) return '';
       return decodeURIComponent(results[2].replace(/\+/g, " "));
     }
+    var qrcode = new QRCode(document.getElementById("qrcode"), {
+      text: getParameterByName('source'),
+      width: 150,
+      height: 150,
+      colorDark: "#00AF63",
+      colorLight: "#f2f2f2",
+      correctLevel: QRCode.CorrectLevel.H
+    });
 
-
-    var image = document.createElement("img");
-    image.src = 'http://qr.liantu.com/api.php?text=' + getParameterByName('source') +
-      '&bg=f2f2f2' + '&fg=00AF63' + '&w=150'+'&m=0';
-    image.style = 'margin:0 auto 0 auto;display:block;'
-    var container = document.getElementById('qrcode');
-    container.appendChild(image);
+    // var image = document.createElement("img");
+    // image.src = 'http://qr.liantu.com/api.php?text=' + getParameterByName('source') +
+    //   '&bg=f2f2f2' + '&fg=00AF63' + '&w=150' + '&m=0';
+    // image.style = 'margin:0 auto 0 auto;display:block;'
+    // var container = document.getElementById('qrcode');
+    // container.appendChild(image);
     console.log('done')
   </script>
 </body>
